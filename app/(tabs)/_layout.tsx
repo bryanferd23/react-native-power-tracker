@@ -1,37 +1,42 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { CustomTabBar } from '@/components/ui/TabBar';
+import { View } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+    <View style={{ flex: 1 }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+        tabBar={props => <CustomTabBar {...props} />}
+      >
+        <Tabs.Screen
+          name="addDevice"
+          options={{
+            title: "Add Device",
+            tabBarIcon: ({ focused }) => 
+              focused ? "plus-circle" : "plus-circle-outline",
+          }}
+        />
+        <Tabs.Screen
+          name="historicalData"
+          options={{
+            title: "History",
+            tabBarIcon: ({ focused }) => 
+              focused ? "chart-timeline" : "chart-timeline-variant",
+          }}
+        />
+        <Tabs.Screen
+          name="insights"
+          options={{
+            title: "Insights",
+            tabBarIcon: ({ focused }) => 
+              focused ? "lightbulb" : "lightbulb-outline",
+          }}
+        />
+      </Tabs>
+    </View>
   );
-}
+} 
